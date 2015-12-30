@@ -1,0 +1,11 @@
+{
+  "name": "pgjs-dashboard",
+  "version": "0.1.0",
+  "description": "pgjs-dashboard",
+  "author": "PlateGateJS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plategatejs/pgjs-dashboard.git"
+  }
+}
