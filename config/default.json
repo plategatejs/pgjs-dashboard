@@ -1,4 +1,6 @@
 {
-  "version": "0.1.0",
-  "api": "http://localhost:7070"
+  "http": {
+    "port": 8800
+  },
+  "console": "pgjs-console:8600"
 }

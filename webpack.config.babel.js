@@ -5,11 +5,10 @@ import config from 'config';
 
 const isDev = !!~process.argv.indexOf('-d');
 
-const host = config.get('api');
 const prefix = '/api';
 const proxy = {
   [`${prefix}/*`]: {
-    target: host,
+    target: `http://${config.get('console')}`,
     secure: false,
     bypass: req => {
       req.url = req.url.substr(prefix.length, req.url.length);
@@ -20,7 +19,7 @@ const proxy = {
 
 export default {
   entry: [
-    './src/index.js',
+    './src/scripts/index.js',
     'file?name=index.html!./src/index.html'
   ],
   output: {
@@ -35,7 +34,10 @@ export default {
       exclude: /node_modules/
     }]
   },
-  devServer: { proxy },
+  devServer: {
+    proxy,
+    port: config.get('http.port')
+  },
   plugins: isDev ? [] : [
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
