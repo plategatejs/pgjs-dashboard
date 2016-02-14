@@ -2,6 +2,7 @@
 
 import webpack from 'webpack';
 import config from 'config';
+import path from 'path';
 
 const isDev = !!~process.argv.indexOf('-d');
 
@@ -19,8 +20,8 @@ const proxy = {
 
 export default {
   entry: [
-    './src/scripts/index.js',
-    'file?name=index.html!./src/index.html'
+    'index.js',
+    'file?name=index.html!index.html'
   ],
   output: {
     path: './dist',
@@ -32,11 +33,39 @@ export default {
       test: /\.js$/,
       loader: 'babel',
       exclude: /node_modules/
+    }, {
+      test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'url?limit=10000&mimetype=application/font-woff'
+    }, {
+      test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'url?limit=10000&mimetype=application/font-woff'
+    }, {
+      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'url?limit=10000&mimetype=application/octet-stream'
+    }, {
+      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'file'
+    }, {
+      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'url?limit=10000&mimetype=image/svg+xml'
     }]
+  },
+  resolveLoader: {
+    alias: {
+      'template': 'html'
+    }
+  },
+  resolve: {
+    root: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'src', 'scripts'),
+      path.join(__dirname, 'src', 'html')
+    ]
   },
   devServer: {
     proxy,
-    port: config.get('http.port')
+    port: config.get('http.port'),
+    host: config.get('http.host')
   },
   plugins: isDev ? [] : [
     new webpack.optimize.UglifyJsPlugin({

@@ -1,6 +1,7 @@
 {
   "http": {
-    "port": 8800
+    "port": 8800,
+    "host": "0.0.0.0"
   },
   "console": "pgjs-console:8600"
 }

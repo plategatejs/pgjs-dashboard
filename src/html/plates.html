@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Plates</div>
+  <div class="panel-body">
+    <h4>Add a new plate</h4>
+    <form class="row">
+      <div class="form-group col-sm-10">
+        <input type="text" class="form-control" placeholder="Identifier" ng-model="$ctrl.identifier">
+      </div>
+      <div class="form-group col-sm-2">
+        <button type="submit" class="form-control btn btn-default" ng-disabled="$ctrl.isAddDisabled()" ng-click="$ctrl.add()">Add</button>
+      </div>
+    </form>
+
+    <h4>Currently added plates</h4>
+    <ul class="list-group" ng-show="$ctrl.plates.length">
+      <li class="list-group-item" ng-repeat="plate in $ctrl.plates">
+        <plate identifier="plate.identifier"/>
+      </li>
+    </ul>
+    <div ng-show="!$ctrl.plates.length">
+      <h4 class="text-center">There are no plates added yet</h4>
+    </div>
+  </div>
+</div>
